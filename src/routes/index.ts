@@ -1,10 +1,10 @@
 import express from "express";
 const router = express.Router();
 
-import userRoutes from './routes/userRoutes'
-import teamRoutes from './routes/teamRoutes'
+import userRoutes from './userRoutes'
+import teamRoutes from './teamRoutes'
 
 router.use("/user", userRoutes);
 router.use("/team", teamRoutes);
 
-export default router ;
+export default router;

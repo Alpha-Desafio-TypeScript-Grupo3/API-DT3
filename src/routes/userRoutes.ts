@@ -8,4 +8,4 @@ router.get("/", (req, res) => {
 // router.put("/:id")
 // router.delete("/:id")
 
-export default router ;
+export default router;
