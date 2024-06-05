@@ -1,32 +1,30 @@
 import { Request, Response } from "express";
-import { CreateTeamUseCase } from "./CreateTeamUseCase";
 import HttpResponse from "../../utils/http_response";
 import { ErrorType } from "../../utils/exceptions";
+import { DeleteTeamUseCase } from "./DeleteTeamUseCase";
 
-export class CreateTeamController {
-    constructor(private createTeamUseCase: CreateTeamUseCase) { }
+export class DeleteTeamController {
+    constructor(private deleteTeamUseCase: DeleteTeamUseCase) { }
 
-    async handleCreate(req: Request, res: Response): Promise<Response> {
-        const { leader, name } = req.body;
+    async handleDeleteTeam(req: Request, res: Response): Promise<Response> {
+        const team_id = req.params.team_id;
 
         try {
-            const team = await this.createTeamUseCase.execute({ leader, name });
-
-            console.log("controller:", team);
+            const deletedTeam = await this.deleteTeamUseCase.executeDeleteTeam({ team_id });
 
             const response = new HttpResponse({
-                statusCode: 201,
-                data: team,
-                message: 'Time criado com sucesso!'
+                statusCode: 200,
+                data: deletedTeam,
+                message: 'Time deletado com sucesso!'
             });
 
             return res.status(response.statusCode).json(response);
-        } catch (err: any) {
+        } catch (err) {
 
             const typedError = err as { statusCode: number; error: ErrorType; message: string };
             const response = HttpResponse.fromException(typedError);
             return res.status(response.statusCode).json(response);
-
         }
     }
 }
+

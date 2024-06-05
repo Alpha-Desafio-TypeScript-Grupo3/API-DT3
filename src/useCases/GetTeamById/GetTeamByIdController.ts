@@ -1,23 +1,21 @@
 import { Request, Response } from "express";
-import { CreateTeamUseCase } from "./CreateTeamUseCase";
+import { GetTeamByIdUseCase } from "./GetTeamByIdUseCase";
 import HttpResponse from "../../utils/http_response";
 import { ErrorType } from "../../utils/exceptions";
 
-export class CreateTeamController {
-    constructor(private createTeamUseCase: CreateTeamUseCase) { }
+export class GetTeamByIdController {
+    constructor(private getTeamByIdUseCase: GetTeamByIdUseCase) { }
 
-    async handleCreate(req: Request, res: Response): Promise<Response> {
-        const { leader, name } = req.body;
+    async handleGetById(req: Request, res: Response): Promise<Response> {
+        const team_id = req.params.team_id;
 
         try {
-            const team = await this.createTeamUseCase.execute({ leader, name });
-
-            console.log("controller:", team);
+            const team = await this.getTeamByIdUseCase.executeGetById(team_id);
 
             const response = new HttpResponse({
-                statusCode: 201,
+                statusCode: 200,
                 data: team,
-                message: 'Time criado com sucesso!'
+                message: 'Time encontrado com sucesso!'
             });
 
             return res.status(response.statusCode).json(response);
@@ -26,7 +24,7 @@ export class CreateTeamController {
             const typedError = err as { statusCode: number; error: ErrorType; message: string };
             const response = HttpResponse.fromException(typedError);
             return res.status(response.statusCode).json(response);
-
         }
     }
 }
+
