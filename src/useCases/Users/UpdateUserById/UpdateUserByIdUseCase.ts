@@ -48,8 +48,8 @@ export class UpdateUserByIdUseCase {
         newData.password = hashedPassword
       }
 
-      if (data.isAdmin !== null) newData.is_admin = data.isAdmin;
-  
+      if (data.isAdmin !== undefined) newData.is_admin = data.isAdmin;
+  console.log(newData)
       try {
         return await this.postgresUserRepository.updateUserById(userId, newData);
       } catch (err: any) {
