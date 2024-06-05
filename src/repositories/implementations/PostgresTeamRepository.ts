@@ -1,9 +1,9 @@
-import { database } from "../database/postgres";
-import { Team } from "../entities/Team";
-import { ICreateTeamResponseDTO } from "../useCases/CreateTeam/CreateTeamDTO";
-import { IGetTeamResponseDTO } from "../useCases/GetTeam/GetTeamDTO";
-import { InternalServerException } from "../utils/exceptions";
-import { ITeamRepository } from "./ITeamRepository";
+import { database } from "../../database/postgres";
+import { Team } from "../../entities/Team";
+import { ICreateTeamResponseDTO } from "../../useCases/CreateTeam/CreateTeamDTO";
+import { IGetTeamResponseDTO } from "../../useCases/GetTeam/GetTeamDTO";
+import { InternalServerException } from "../../utils/exceptions";
+import { ITeamRepository } from "../ITeamRepository";
 
 export class TeamRepository implements ITeamRepository {
     private team: Team[] = [];

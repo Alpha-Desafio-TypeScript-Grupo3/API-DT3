@@ -1,60 +1,14 @@
-/* {
-  "compilerOptions": {
-    "target": "es2017",                               
-    "module": "commonjs",       
-    "esModuleInterop": true,                          
-    "forceConsistentCasingInFileNames": true,       
-    "strict": true,                    
-    "skipLibCheck": true                               
-  },
-  "include": [ */
-//"src/**/*.ts"
-/*   ]
-} */
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "allowJs": true,
-    "outDir": "dist",
-    "rootDir": "src",
-    "strict": true,
-    "noImplicitAny": true,
+    "target": "es6",
+    "module": "commonjs",
     "esModuleInterop": true,
+    "allowJs": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "lib": [
-      "es6",
-      "dom"
-    ]
+    "strict": true,
+    "skipLibCheck": true
   },
-  "files": [
-    "src/app.ts",
-    "src/server.ts",
-    "src/config/index.ts",
-    "src/database/postgres.ts",
-    "src/entities/Team.ts",
-    "src/repositories/ITeamRepository.ts",
-    "src/repositories/TeamRepository.ts",
-    "src/useCases/CreateTeam/CreateTeamController.ts",
-    "src/useCases/CreateTeam/CreateTeamDTO.ts",
-    "src/useCases/CreateTeam/CreateTeamUseCase.ts",
-    "src/useCases/GetTeam/index.ts",
-    "src/useCases/GetTeam/GetTeamController.ts",
-    "src/useCases/GetTeam/GetTeamDTO.ts",
-    "src/useCases/GetTeam/GetTeamUseCase.ts",
-    "src/routes/index.ts",
-    "src/routes/userRoutes.ts",
-    "src/routes/teamRoutes.ts",
-    //"src/utils/comparePassword.ts",
-    //"src/utils/hashPassword.ts",
-    "src/utils/exceptions.ts",
-    "src/utils/http_response.ts",
-  ],
   "include": [
-    "src/*.ts",
-    "src/**/*.ts",
+    "src/**/*.ts"
   ]
 }
