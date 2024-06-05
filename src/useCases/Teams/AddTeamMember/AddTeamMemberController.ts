@@ -3,7 +3,6 @@ import HttpResponse from "../../../utils/http_response";
 import { ErrorType } from "../../../utils/exceptions";
 import { AddTeamMemberUseCase } from "./AddTeamMemberUseCase";
 
-
 export class AddTeamMemberController {
     constructor(private addTeamMemberUseCase: AddTeamMemberUseCase) { }
 

@@ -1,4 +1,3 @@
-
 import { PostgresTeamRepository } from "../../../repositories/implementations/PostgresTeamRepository";
 import { PostgresUserRepository } from "../../../repositories/implementations/PostgresUserRepository";
 import { DeleteTeamMemberController } from "./DeleteTeamMemberController";

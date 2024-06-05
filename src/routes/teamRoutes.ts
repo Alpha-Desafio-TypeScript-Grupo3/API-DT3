@@ -1,5 +1,4 @@
 import express from "express"
-
 import { getTeamsController } from "../useCases/Teams/GetTeams";
 import { createTeamController } from "../useCases/Teams/CreateTeam";
 import { getTeamByIdController } from "../useCases/Teams/GetTeamById";
