@@ -5,24 +5,27 @@ export class CreateUserController {
   constructor(private createUserUseCase: CreateUserUseCase) {}
 
   public async handle(req: Request, res: Response): Promise<Response> {
-    const { first_name, last_name, email, password, username, squad, is_admin } = req.body;
+    const { first_name, last_name, email, password, username } = req.body;
 
     try {
-      const user = await this.createUserUseCase.execute({ 
-        first_name, 
-        last_name, 
-        email, 
-        password, 
-        username, 
-        squad, 
-        is_admin 
+      const user = await this.createUserUseCase.execute({
+        first_name,
+        last_name,
+        email,
+        password,
+        username,
       });
 
       const { id } = user;
       return res.status(201).json({
-        newUser: { id, username, email, first_name, last_name, squad, is_admin },
+        newUser: {
+          id,
+          username,
+          email,
+          first_name,
+          last_name
+        },
       });
-
     } catch (error) {
       if (error instanceof Error) {
         return res.status(400).json({ message: error.message });

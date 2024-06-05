@@ -30,7 +30,7 @@ export class PostgresUserRepository implements IUserRepository {
         password: userFromDb.password,
         username: userFromDb.username,
         squad: userFromDb.squad,
-        is_admin: userFromDb.is_admin
+        is_admin: userFromDb.is_admin,
       };
 
       return user;
@@ -44,7 +44,16 @@ export class PostgresUserRepository implements IUserRepository {
       INSERT INTO users (id, username, email, first_name, last_name, password, squad, is_admin)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
     `;
-    const values = [user.id, user.username, user.email, user.first_name, user.last_name, user.password, user.squad, user.is_admin];
+    const values = [
+      user.id,
+      user.username,
+      user.email,
+      user.first_name,
+      user.last_name,
+      user.password,
+      user.squad,
+      user.is_admin,
+    ];
 
     await this.pool.query(query, values);
   }
@@ -63,7 +72,7 @@ export class PostgresUserRepository implements IUserRepository {
         password: userFromDb.password,
         username: userFromDb.username,
         squad: userFromDb.squad,
-        is_admin: userFromDb.is_admin
+        is_admin: userFromDb.is_admin,
       };
 
       return user;
@@ -72,15 +81,35 @@ export class PostgresUserRepository implements IUserRepository {
     }
   }
 
-  public async updateUserById(id: string, updatedData: Partial<User>): Promise<void> {
-    const { first_name, last_name, email, password, username, squad, is_admin } = updatedData;
+  public async updateUserById(
+    id: string,
+    updatedData: Partial<User>
+  ): Promise<void> {
+    const {
+      first_name,
+      last_name,
+      email,
+      password,
+      username,
+      squad,
+      is_admin,
+    } = updatedData;
 
     const query = `
       UPDATE users
       SET first_name = $1, last_name = $2, email = $3, password = $4, username = $5, squad = $6, is_admin = $7
       WHERE id = $8
     `;
-    const values = [first_name, last_name, email, password, username, squad, is_admin, id];
+    const values = [
+      first_name,
+      last_name,
+      email,
+      password,
+      username,
+      squad,
+      is_admin,
+      id,
+    ];
 
     try {
       await this.pool.query(query, values);
@@ -116,7 +145,7 @@ export class PostgresUserRepository implements IUserRepository {
         password: userFromDb.password,
         username: userFromDb.username,
         squad: userFromDb.squad,
-        is_admin: userFromDb.is_admin
+        is_admin: userFromDb.is_admin,
       }));
 
       return users;
@@ -124,5 +153,15 @@ export class PostgresUserRepository implements IUserRepository {
       console.error("Error fetching all users:", error);
       throw new Error("Failed to fetch users.");
     }
+  }
+
+  async findIfUserIsLeader(userId: string): Promise<boolean> {
+    const query = `
+    SELECT * FROM nome_da_segunda_tabela WHERE leader = $1
+    `;
+
+    const result = await this.pool.query(query, [userId]);
+
+    return result.rows.length > 0;
   }
 }

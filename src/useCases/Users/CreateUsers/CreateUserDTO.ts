@@ -4,7 +4,5 @@ export interface ICreateUserRequestDTO {
     email: string;
     password: string;
     username: string;
-    squad: string;
-    is_admin: boolean;
   }
   

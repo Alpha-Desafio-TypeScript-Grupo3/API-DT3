@@ -13,4 +13,6 @@ export interface IUserRepository {
   deleteUserById(id: string): Promise<void>;
   
   getUsers(): Promise<User[]>
+
+  findIfUserIsLeader(userId: string): Promise<boolean>
 }

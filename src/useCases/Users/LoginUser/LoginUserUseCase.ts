@@ -25,6 +25,7 @@ export class LoginUserUseCase {
       id: userInDB.id,
       name: `${userInDB.first_name} ${userInDB.last_name}`,
       email: userInDB.email,
+      is_admin: userInDB.is_admin
     };
 
     const sessionToken = jwt.sign(user, config.SECRET_KEY);

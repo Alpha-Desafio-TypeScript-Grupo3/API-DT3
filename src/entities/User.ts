@@ -11,19 +11,17 @@ export class User {
     public squad: string;
     public is_admin: boolean;
 
-    constructor(props: Omit<User, "id"> & { is_admin?: boolean, squad?: string }, id?: string)  {
+    constructor(props: Omit<User, "id" | "squad" | "is_admin">, is_admin?: boolean, squad?: string , id?: string)  {
         this.first_name = props.first_name;
         this.last_name = props.last_name;
         this.email = props.email;
         this.password = props.password;
         this.username = props.username;
-        this.squad = props.squad || "";
-        this.is_admin = props.is_admin !== undefined ? props.is_admin : false;
+        this.squad = squad || "";
+        this.is_admin = is_admin || false;
         
         if (!id){
             this.id = uuid();
-        } else {
-            this.id = id;
         }
     }
 }

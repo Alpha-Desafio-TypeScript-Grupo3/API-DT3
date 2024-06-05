@@ -5,13 +5,15 @@ import { getUserByIdController } from '../useCases/Users/GetUserById'
 import { createUserController } from '../useCases/Users/CreateUsers'
 import { loginUserController } from '../useCases/Users/LoginUser'
 import { logoutUserController } from '../useCases/Users/LogoutUser'
+import { checkAdmin } from '../middleware/checkAdmin'
+import { checkLeader } from '../middleware/checkLeader'
 
 const router = Router()
 
-router.get("/", (req: Request, res: Response) => {
+router.get("/", checkAdmin,(req: Request, res: Response) => {
     return getUsersController.handle(req, res)    
 })
-router.get("/:user_id", (req: Request, res: Response) => {
+router.get("/:user_id", checkLeader,(req: Request, res: Response) => {
     return getUserByIdController.handle(req, res)    
 })
 

@@ -25,9 +25,7 @@ export class CreateUserUseCase {
       last_name: data.last_name,
       email: data.email,
       password: hashedPassword,
-      username: data.username,
-      squad: data.squad,
-      is_admin: data.is_admin
+      username: data.username
     });
 
     await this.usersRepository.createUser(user);
