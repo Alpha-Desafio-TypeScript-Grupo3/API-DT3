@@ -1,18 +1,29 @@
-import { uuid } from "uuidv4";
+import { v4 as uuid } from "uuid";
 
 export class User {
     public readonly id: string | undefined;
 
-    public name: string;
+    public first_name: string;
+    public last_name: string;
     public email: string;
     public password: string;
+    public username: string;
+    public squad: string;
+    public is_admin: boolean;
 
-    constructor(props: Omit<User, 'id'>, id?: string) {
-        this.name = props.name
-        this.email = props.email
-        this.password = props.password
+    constructor(props: Omit<User, "id"> & { is_admin?: boolean, squad?: string }, id?: string)  {
+        this.first_name = props.first_name;
+        this.last_name = props.last_name;
+        this.email = props.email;
+        this.password = props.password;
+        this.username = props.username;
+        this.squad = props.squad || "";
+        this.is_admin = props.is_admin !== undefined ? props.is_admin : false;
+        
         if (!id){
             this.id = uuid();
+        } else {
+            this.id = id;
         }
     }
 }
