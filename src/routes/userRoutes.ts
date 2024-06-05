@@ -20,12 +20,5 @@ router.get("/:user_id", checkLeader,(req: Request, res: Response) => {
 router.post("/", (req: Request, res: Response) => {
     return createUserController.handle(req,res)
 })
-router.post("/login", (req: Request, res: Response) => {
-    return loginUserController.handle(req,res)
-})
-
-router.delete("/logout", (req: Request, res: Response) => {
-    return logoutUserController.handle(req,res);
-})
 
 export default router ;

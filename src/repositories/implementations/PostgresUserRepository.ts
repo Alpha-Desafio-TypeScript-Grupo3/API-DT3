@@ -157,7 +157,7 @@ export class PostgresUserRepository implements IUserRepository {
 
   async findIfUserIsLeader(userId: string): Promise<boolean> {
     const query = `
-    SELECT * FROM nome_da_segunda_tabela WHERE leader = $1
+    SELECT * FROM Teams WHERE leader = $1
     `;
 
     const result = await this.pool.query(query, [userId]);
