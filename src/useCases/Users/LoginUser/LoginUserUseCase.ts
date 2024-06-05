@@ -1,6 +1,6 @@
 import { IUserRepository } from "../../../repositories/IUserRepository";
 import { ILoginUserRequestDTO } from "./LoginUserDTO";
-import { Utils } from "../../../Utils/Utils";
+import { Utils } from "../../../utils/Utils";
 import { config } from "../../../config";
 import jwt from "jsonwebtoken";
 

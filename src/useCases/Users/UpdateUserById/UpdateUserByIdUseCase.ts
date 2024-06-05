@@ -1,4 +1,4 @@
-import { Utils } from "../../../Utils/Utils";
+import { Utils } from "../../../utils/Utils";
 import { UserValidation } from "../../../Validation/UserValidation";
 import { User } from "../../../entities/User"
 import { IUserRepository } from "../../../repositories/IUserRepository"

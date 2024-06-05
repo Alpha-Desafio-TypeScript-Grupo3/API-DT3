@@ -1,13 +1,13 @@
 import { database } from "../../database/postgres";
 import { Team } from "../../entities/Team";
-import { IAddTeamMemberRequestDTO, IAddTeamMemberResponseDTO } from "../../useCases/AddTeamMember/AddTeamMemberDTO";
-import { ICreateTeamRequestDTO, ICreateTeamResponseDTO } from "../../useCases/CreateTeam/CreateTeamDTO";
-import { IDeleteRequestDTO, IDeleteResponseDTO } from "../../useCases/DeleteTeam/DeleteTeamDTO";
-import { IDeleteTeamMemberRequestDTO, IDeleteTeamMemberResponseDTO } from "../../useCases/DeleteTeamMember/DeleteTeamMemberDTO";
-import { IGetTeamByIdRequestDTO, IGetTeamByIdResponseDTO } from "../../useCases/GetTeamById/GetTeamByIdDTO";
-import { IGetTeamMembersRequestDTO, IGetTeamMembersResponseDTO } from "../../useCases/GetTeamMembers/GetTeamMembersDTO";
-import { IGetTeamsRequestDTO, IGetTeamsResponseDTO } from "../../useCases/GetTeams/GetTeamsDTO";
-import { IUpdateTeamRequestDTO, IUpdateTeamResponseDTO } from "../../useCases/UpdateTeam/UpdateTeamDTO";
+import { IAddTeamMemberRequestDTO, IAddTeamMemberResponseDTO } from "../../useCases/Teams/AddTeamMember/AddTeamMemberDTO";
+import { ICreateTeamRequestDTO, ICreateTeamResponseDTO } from "../../useCases/Teams/CreateTeam/CreateTeamDTO";
+import { IDeleteRequestDTO, IDeleteResponseDTO } from "../../useCases/Teams/DeleteTeam/DeleteTeamDTO";
+import { IDeleteTeamMemberRequestDTO, IDeleteTeamMemberResponseDTO } from "../../useCases/Teams/DeleteTeamMember/DeleteTeamMemberDTO";
+import { IGetTeamByIdRequestDTO, IGetTeamByIdResponseDTO } from "../../useCases/Teams/GetTeamById/GetTeamByIdDTO";
+import { IGetTeamMembersRequestDTO, IGetTeamMembersResponseDTO } from "../../useCases/Teams/GetTeamMembers/GetTeamMembersDTO";
+import { IGetTeamsRequestDTO, IGetTeamsResponseDTO } from "../../useCases/Teams/GetTeams/GetTeamsDTO";
+import { IUpdateTeamRequestDTO, IUpdateTeamResponseDTO } from "../../useCases/Teams/UpdateTeam/UpdateTeamDTO";
 import { InternalServerException } from "../../utils/exceptions";
 import { ITeamRepository } from "../ITeamRepository";
 
