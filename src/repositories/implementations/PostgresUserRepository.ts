@@ -15,6 +15,9 @@ export class PostgresUserRepository implements IUserRepository {
       port: 5432,
     });
   }
+  findIfUserIsLeader(userId: string): Promise<boolean> {
+    throw new Error("Method not implemented.");
+  }
 
  public async findUserByEmail(email: string): Promise<boolean> {
     const query = `SELECT * FROM users WHERE email = $1`;
@@ -140,6 +143,33 @@ export class PostgresUserRepository implements IUserRepository {
     } catch (error) {
       console.error("Error fetching all users:", error);
       throw new Error("Failed to fetch users.");
+    }
+
+    
+  }
+  public async getUserByEmail(email: string): Promise<User | null> {
+    const query = `
+    SELECT * FROM users WHERE email = $1
+    `;
+
+    const result = await this.pool.query(query, [email]);
+
+    if (result.rows.length > 0) {
+      const userFromDb = result.rows[0];
+      const user: User = {
+        id: userFromDb.id,
+        firstName: userFromDb.first_name,
+        lastName: userFromDb.last_name,
+        email: userFromDb.email,
+        password: userFromDb.password,
+        username: userFromDb.username,
+        squad: userFromDb.squad,
+        isAdmin: userFromDb.is_admin,
+      };
+
+      return user;
+    } else {
+      return null;
     }
   }
 }

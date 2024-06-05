@@ -1,15 +1,19 @@
 import { Request, Response } from "express";
 import { GetUserByIdUseCase } from "./GetUserByIdUseCase";
+import { IGetUserRequestDTO } from "./GetUserByIdDTO";
 
 export class GetUserByIdController {
-  static handle(req: Request, res: Response): void {
-      throw new Error('Method not implemented.');
-  }
-  public constructor(private getUsersByIdUseCase: GetUserByIdUseCase) {}
+  constructor(private getUsersByIdUseCase: GetUserByIdUseCase) {}
 
-  public async handle(req: Request, res: Response) {
+  async handle(req: Request, res: Response) {
     try {
-      const result = await this.getUsersByIdUseCase.execute(req.params.user_id);
+      const userId = req.params.user_id;
+
+      const requestDTO: IGetUserRequestDTO = {
+        user_id: userId,
+      };
+
+      const result = await this.getUsersByIdUseCase.execute(requestDTO);
 
       return res.status(200).json(result);
     } catch (error) {
