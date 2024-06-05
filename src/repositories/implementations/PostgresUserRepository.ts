@@ -4,25 +4,26 @@ import { IUserRepository } from "../IUserRepository";
 import { Pool } from "pg";
 
 export class PostgresUserRepository implements IUserRepository {
-  private pool: Pool 
+  private pool: Pool
 
   constructor() {
     this.pool = new Pool({
-      user: config.DB_USER,
-      password: config.DB_PASSWORD,
-      host: config.DB_HOST,
-      database: config.DATABASE,
-      port: 5432,
+      user: configDatabase.DB_USERNAME,
+      host: configDatabase.DB_HOST,
+      database: configDatabase.DATABASE,
+      password: configDatabase.DB_PASSWORD,
+      port: Number(configDatabase.DB_PORT),
+      max: 20,
     });
   }
   findIfUserIsLeader(userId: string): Promise<boolean> {
     throw new Error("Method not implemented.");
   }
 
- public async findUserByEmail(email: string): Promise<boolean> {
+  public async findUserByEmail(email: string): Promise<boolean> {
     const query = `SELECT * FROM users WHERE email = $1`;
     const result: any = await this.pool.query(query, [email]);
-    if(result.rowCount > 0){
+    if (result.rowCount > 0) {
       return true
     } else {
       return false
@@ -32,7 +33,7 @@ export class PostgresUserRepository implements IUserRepository {
   public async findUserByUsername(username: string): Promise<boolean> {
     const query = `SELECT * FROM users WHERE username = $1`;
     const result: any = await this.pool.query(query, [username]);
-    if(result.rowCount > 0){
+    if (result.rowCount > 0) {
       return true
     } else {
       return false
@@ -70,15 +71,15 @@ export class PostgresUserRepository implements IUserRepository {
         INSERT INTO Users (id, username, first_name, last_name, email, password, squad, is_admin)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *
         `;
-        try {
-          const result: any = await this.pool.query(query, 
-            [user.id, user.username, user.firstName, user.lastName, user.email, user.password, user.squad, user.isAdmin])
-            console.log("User inserted successfully!", user);
-            return result.rows[0];
-          } catch (err: any) {
-            console.error("Error inserting user:", err.message);
-            return err.message
-          }
+    try {
+      const result: any = await this.pool.query(query,
+        [user.id, user.username, user.firstName, user.lastName, user.email, user.password, user.squad, user.isAdmin])
+      console.log("User inserted successfully!", user);
+      return result.rows[0];
+    } catch (err: any) {
+      console.error("Error inserting user:", err.message);
+      return err.message
+    }
   }
 
 
@@ -145,7 +146,7 @@ export class PostgresUserRepository implements IUserRepository {
       throw new Error("Failed to fetch users.");
     }
 
-    
+
   }
   public async getUserByEmail(email: string): Promise<User | null> {
     const query = `

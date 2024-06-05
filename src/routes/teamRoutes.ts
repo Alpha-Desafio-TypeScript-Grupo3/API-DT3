@@ -1,12 +1,13 @@
 import express from "express"
-import { getTeamsController } from "../useCases/GetTeams";
-import { createTeamController } from "../useCases/CreateTeam";
-import { getTeamByIdController } from "../useCases/GetTeamById";
-import { getTeamMembersController } from "../useCases/GetTeamMembers";
-import { addTeamMemberController } from "../useCases/AddTeamMember";
-import { updateTeamController } from "../useCases/UpdateTeam";
-import { deleteTeamMemberController } from "../useCases/DeleteTeamMember";
-import { deleteTeamController } from "../useCases/DeleteTeam";
+
+import { getTeamsController } from "../useCases/Teams/GetTeams";
+import { createTeamController } from "../useCases/Teams/CreateTeam";
+import { getTeamByIdController } from "../useCases/Teams/GetTeamById";
+import { getTeamMembersController } from "../useCases/Teams/GetTeamMembers";
+import { addTeamMemberController } from "../useCases/Teams/AddTeamMember";
+import { updateTeamController } from "../useCases/Teams/UpdateTeam";
+import { deleteTeamMemberController } from "../useCases/Teams/DeleteTeamMember";
+import { deleteTeamController } from "../useCases/Teams/DeleteTeam";
 const router = express.Router()
 
 router.get('/', (req, res) => { return getTeamsController.handleGetAll(req, res) });

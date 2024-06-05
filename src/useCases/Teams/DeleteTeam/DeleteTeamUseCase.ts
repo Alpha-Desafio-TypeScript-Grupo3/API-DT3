@@ -1,6 +1,6 @@
-import { Team } from "../../entities/Team";
-import { ITeamRepository } from "../../repositories/ITeamRepository";
-import { BadRequestException, NotFoundException } from "../../utils/exceptions";
+import { Team } from "../../../entities/Team";
+import { ITeamRepository } from "../../../repositories/ITeamRepository";
+import { BadRequestException, NotFoundException } from "../../../utils/exceptions";
 import { IDeleteRequestDTO } from "./DeleteTeamDTO";
 
 

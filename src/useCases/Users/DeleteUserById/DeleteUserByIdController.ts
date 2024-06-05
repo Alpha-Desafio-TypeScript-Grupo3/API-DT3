@@ -3,13 +3,14 @@ import { DeleteUserByIdUseCase } from "./DeleteUserByIdUseCase";
 
 export class DeleteUserByIdController {
   static handle(req: Request, res: Response): void {
-      throw new Error('Method not implemented.');
+    throw new Error('Method not implemented.');
   }
-  public constructor(private deleteUserByIdUseCase: DeleteUserByIdUseCase) {}
+  public constructor(private deleteUserByIdUseCase: DeleteUserByIdUseCase) { }
 
   public async handle(req: Request, res: Response) {
+    const userId = req.params.user_id;
     try {
-      const result = await this.deleteUserByIdUseCase.execute(req.params.user_id);
+      const result = await this.deleteUserByIdUseCase.execute({ userId });
 
       return res.status(200).json({ message: "User deleted successfully", data: result });
     } catch (error) {

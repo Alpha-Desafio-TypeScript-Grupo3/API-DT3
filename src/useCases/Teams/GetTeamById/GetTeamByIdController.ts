@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { GetTeamByIdUseCase } from "./GetTeamByIdUseCase";
-import HttpResponse from "../../utils/http_response";
-import { ErrorType } from "../../utils/exceptions";
+import HttpResponse from "../../../utils/http_response";
+import { ErrorType } from "../../../utils/exceptions";
 
 export class GetTeamByIdController {
     constructor(private getTeamByIdUseCase: GetTeamByIdUseCase) { }
@@ -10,7 +10,7 @@ export class GetTeamByIdController {
         const team_id = req.params.team_id;
 
         try {
-            const team = await this.getTeamByIdUseCase.executeGetById(team_id);
+            const team = await this.getTeamByIdUseCase.executeGetById({ team_id });
 
             const response = new HttpResponse({
                 statusCode: 200,

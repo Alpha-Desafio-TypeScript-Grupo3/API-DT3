@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { CreateTeamUseCase } from "./CreateTeamUseCase";
-import HttpResponse from "../../utils/http_response";
-import { ErrorType } from "../../utils/exceptions";
+import HttpResponse from "../../../utils/http_response";
+import { ErrorType } from "../../../utils/exceptions";
 
 export class CreateTeamController {
     constructor(private createTeamUseCase: CreateTeamUseCase) { }

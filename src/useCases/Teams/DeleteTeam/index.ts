@@ -1,10 +1,10 @@
-import { TeamRepository } from "../../repositories/implementations/PostgresTeamRepository";
+import { PostgresTeamRepository } from "../../../repositories/implementations/PostgresTeamRepository";
 import { DeleteTeamController } from "./DeleteTeamController";
 import { DeleteTeamUseCase } from "./DeleteTeamUseCase";
 
-const teamRepository = new TeamRepository();
+const postgresTeamRepository = new PostgresTeamRepository();
 
-const deleteTeamUseCase = new DeleteTeamUseCase(teamRepository);
+const deleteTeamUseCase = new DeleteTeamUseCase(postgresTeamRepository);
 
 const deleteTeamController = new DeleteTeamController(deleteTeamUseCase);
 

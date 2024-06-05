@@ -6,12 +6,12 @@ import { IDeleteRequestDTO, IDeleteResponseDTO } from "../../useCases/Teams/Dele
 import { IDeleteTeamMemberRequestDTO, IDeleteTeamMemberResponseDTO } from "../../useCases/Teams/DeleteTeamMember/DeleteTeamMemberDTO";
 import { IGetTeamByIdRequestDTO, IGetTeamByIdResponseDTO } from "../../useCases/Teams/GetTeamById/GetTeamByIdDTO";
 import { IGetTeamMembersRequestDTO, IGetTeamMembersResponseDTO } from "../../useCases/Teams/GetTeamMembers/GetTeamMembersDTO";
-import { IGetTeamsRequestDTO, IGetTeamsResponseDTO } from "../../useCases/Teams/GetTeams/GetTeamsDTO";
+import { IGetTeamsResponseDTO } from "../../useCases/Teams/GetTeams/GetTeamsDTO";
 import { IUpdateTeamRequestDTO, IUpdateTeamResponseDTO } from "../../useCases/Teams/UpdateTeam/UpdateTeamDTO";
 import { InternalServerException } from "../../utils/exceptions";
 import { ITeamRepository } from "../ITeamRepository";
 
-export class TeamRepository implements ITeamRepository {
+export class PostgresTeamRepository implements ITeamRepository {
     private team: Team[] = [];
 
     async getAll(): Promise<IGetTeamsResponseDTO[]> {
@@ -39,7 +39,8 @@ export class TeamRepository implements ITeamRepository {
     async getTeamMembers(data: IGetTeamMembersRequestDTO): Promise<IGetTeamMembersResponseDTO[]> {
         try {
             const results = await database.executeQuery({
-                query: `SELECT * from users WHERE team = $1`,
+                //query: `SELECT * from users WHERE team = $1`,
+                query: `SELECT * from users WHERE squad = $1`,
             });
 
             console.log("rr", results.rows);
@@ -132,7 +133,8 @@ export class TeamRepository implements ITeamRepository {
         try {
 
             const result = await database.executeQuery({
-                query: "UPDATE users SET team = $2 WHERE id = $1 RETURNING *",
+                //query: "UPDATE users SET team = $2 WHERE id = $1 RETURNING *",
+                query: "UPDATE users SET squad = $2 WHERE id = $1 RETURNING *",
                 args: [data.user_id, data.team_id],
             });
 
@@ -182,7 +184,8 @@ export class TeamRepository implements ITeamRepository {
         try {
 
             const result = await database.executeQuery({
-                query: "UPDATE users SET team = '' WHERE id = $1 RETURNING *",
+                //query: "UPDATE users SET team = '' WHERE id = $1 RETURNING *",
+                query: "UPDATE users SET squad = '' WHERE id = $1 RETURNING *",
                 args: [data.user_id],
             });
 

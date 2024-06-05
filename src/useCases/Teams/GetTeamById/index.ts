@@ -1,11 +1,11 @@
-import { TeamRepository } from "../../repositories/implementations/PostgresTeamRepository";
+import { PostgresTeamRepository } from "../../../repositories/implementations/PostgresTeamRepository";
 import { GetTeamByIdController } from "./GetTeamByIdController";
 import { GetTeamByIdUseCase } from "./GetTeamByIdUseCase";
 
 
-const teamRepository = new TeamRepository();
+const postgresTeamRepository = new PostgresTeamRepository();
 
-const getTeamByIdUseCase = new GetTeamByIdUseCase(teamRepository);
+const getTeamByIdUseCase = new GetTeamByIdUseCase(postgresTeamRepository);
 
 const getTeamByIdController = new GetTeamByIdController(getTeamByIdUseCase);
 

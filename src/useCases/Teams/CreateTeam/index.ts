@@ -1,10 +1,10 @@
-import { TeamRepository } from "../../repositories/implementations/PostgresTeamRepository";
+import { PostgresTeamRepository } from "../../../repositories/implementations/PostgresTeamRepository";
 import { CreateTeamController } from "./CreateTeamController";
 import { CreateTeamUseCase } from "./CreateTeamUseCase";
 
-const teamRepository = new TeamRepository();
+const postgresTeamRepository = new PostgresTeamRepository();
 
-const createTeamUseCase = new CreateTeamUseCase(teamRepository);
+const createTeamUseCase = new CreateTeamUseCase(postgresTeamRepository);
 
 const createTeamController = new CreateTeamController(createTeamUseCase);
 

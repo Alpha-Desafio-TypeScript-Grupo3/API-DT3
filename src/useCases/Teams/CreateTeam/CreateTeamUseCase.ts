@@ -1,6 +1,7 @@
-import { Team } from "../../entities/Team";
-import { ITeamRepository } from "../../repositories/ITeamRepository";
-import { ConflictException } from "../../utils/exceptions";
+
+import { Team } from "../../../entities/Team";
+import { ITeamRepository } from "../../../repositories/ITeamRepository";
+import { ConflictException } from "../../../utils/exceptions";
 import { ICreateTeamRequestDTO } from "./CreateTeamDTO";
 
 export class CreateTeamUseCase {
