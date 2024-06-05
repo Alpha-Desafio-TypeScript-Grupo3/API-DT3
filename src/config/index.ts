@@ -17,6 +17,10 @@ import dotenv from "dotenv";
 dotenv.config();
 
 interface Config {
+  DATABASE: string | undefined;
+  DB_HOST: string | undefined;
+  DB_PASSWORD: string | (() => string | Promise<string>) | undefined;
+  DB_USER: string | undefined;
   MODE_ENV: string;
   HOST: string;
   PORT: number;
@@ -28,12 +32,16 @@ const config: Config = {
   HOST: process.env.HOST || "127.0.0.1",
   PORT: Number(process.env.PORT) || 3000,
   SECRET_KEY: process.env.SECRET_KEY || "my_epic_key",
+  DATABASE: undefined,
+  DB_HOST: undefined,
+  DB_PASSWORD: undefined,
+  DB_USER: undefined
 };
 
-interface ConfigDatabase {
-  DB_HOST: string;
+export interface ConfigDatabase {
   DB_USERNAME: string;
   DB_PASSWORD: string;
+  DB_HOST: string;
   DATABASE: string;
   DB_PORT: number;
 }
