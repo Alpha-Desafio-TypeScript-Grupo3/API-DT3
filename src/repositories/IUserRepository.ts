@@ -11,10 +11,7 @@ export interface IUserRepository {
 
   createUser(user: User): Promise<Partial<User> | string>;
 
-  updateUserById(
-    id: string,
-    updatedData: Partial<User>
-  ): Promise<Partial<User>>;
+  updateUserById(id: string, updatedData: Partial<User>): Promise<Partial<User>>;
 
   deleteUserById(id: string): Promise<Partial<User>>;
 

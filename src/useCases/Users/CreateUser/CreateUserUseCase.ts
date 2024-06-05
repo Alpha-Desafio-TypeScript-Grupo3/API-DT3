@@ -3,6 +3,7 @@ import { UserValidation } from "../../../Validation/UserValidation";
 import { User } from "../../../entities/User"
 import { IUserRepository } from "../../../repositories/IUserRepository"
 import { ICreateUserRequestDTO } from "./CreateUserDTO"
+import { ConflictException } from "../../../utils/exceptions";
 
 export class CreateUserUseCase {
     public constructor(
@@ -17,8 +18,8 @@ export class CreateUserUseCase {
         const emailAlreadyExists = await this.postgresUserRepository.findUserByEmail(data.email);
         const usernameAlreadyExists = await this.postgresUserRepository.findUserByUsername(data.username);
 
-        if (emailAlreadyExists) throw new Error("The email already exists.");
-        if (usernameAlreadyExists) throw new Error("The username already exists.");
+        if (emailAlreadyExists) throw new ConflictException("The email already exists.");
+        if (usernameAlreadyExists) throw new ConflictException("The username already exists.");
     
         const hashedPassword: string = await Utils.hashPassword(data.password);
 

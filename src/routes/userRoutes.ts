@@ -24,11 +24,11 @@ router.post("/login", (req: Request, res: Response) => {
 router.patch("/:user_id", (req: Request, res: Response) => {
     return updateUserByIdController.handle(req, res)
 })
-router.delete("/:user_id", (req: Request, res: Response) => {
-    return deleteUserByIdController.handle(req, res)
-})
 router.delete("/logout", (req: Request, res: Response) => {
     return logoutUserController.handle(req, res)
+})
+router.delete("/:user_id", (req: Request, res: Response) => {
+    return deleteUserByIdController.handle(req, res)
 })
 
 export default router;

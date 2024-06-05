@@ -2,7 +2,7 @@ import { UserValidation } from "../../../Validation/UserValidation";
 import { User } from "../../../entities/User"
 import { IUserRepository } from "../../../repositories/IUserRepository"
 import { IDeleteUserDTO } from "./DeleteUserByIdDTO";
-
+import { NotFoundException, InternalServerException } from "../../../utils/exceptions";
 export class DeleteUserByIdUseCase {
     public constructor(
       private postgresUserRepository: IUserRepository
@@ -12,12 +12,12 @@ export class DeleteUserByIdUseCase {
       console.log(data.userId)
       UserValidation.uuidCheck(data.userId)
       const userExists = await this.postgresUserRepository.getUserById(data.userId)
-      if (userExists === null) throw new Error("The user doesn't exists.");
+      if (userExists === null) throw new NotFoundException("The user doesn't exists.");
 
       try {
         return await this.postgresUserRepository.deleteUserById(data.userId);
       } catch (err: any) {
-        throw new Error(err.message)
+        throw new InternalServerException()
       }
     }
   }

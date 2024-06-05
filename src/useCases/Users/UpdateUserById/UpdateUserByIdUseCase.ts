@@ -3,6 +3,7 @@ import { UserValidation } from "../../../Validation/UserValidation";
 import { User } from "../../../entities/User"
 import { IUserRepository } from "../../../repositories/IUserRepository"
 import { IUpdateUserByIdRequestDTO } from "./UpdateUserByIdDTO";
+import { ConflictException } from "../../../utils/exceptions";
 
 export class UpdateUserByIdUseCase {
     public constructor(
@@ -32,13 +33,13 @@ export class UpdateUserByIdUseCase {
       if (data.email) {
         UserValidation.emailCheck(data.email);
         const emailAlreadyExists = await this.postgresUserRepository.findUserByEmail(data.email);
-        if (emailAlreadyExists) throw new Error("The email already exists.");
+        if (emailAlreadyExists) throw new ConflictException("The email already exists.");
         newData.email = data.email
       }
 
       if (data.username) {
         const usernameAlreadyExists = await this.postgresUserRepository.findUserByUsername(data.username);
-        if (usernameAlreadyExists) throw new Error("The username already exists.");
+        if (usernameAlreadyExists) throw new ConflictException("The username already exists.");
         newData.username = data.username
       }
 
