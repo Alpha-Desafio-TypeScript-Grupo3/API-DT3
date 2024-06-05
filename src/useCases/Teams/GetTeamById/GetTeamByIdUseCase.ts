@@ -1,4 +1,4 @@
-import { ITeamRepository } from "../../repositories/ITeamRepository";
+import { ITeamRepository } from "../../../repositories/ITeamRepository";
 import { IGetTeamByIdRequestDTO } from "./GetTeamByIdDTO";
 
 export class GetTeamByIdUseCase {

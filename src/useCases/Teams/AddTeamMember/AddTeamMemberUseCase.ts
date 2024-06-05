@@ -1,8 +1,9 @@
-import { ITeamRepository } from "../../repositories/ITeamRepository";
-import { NotFoundException } from "../../utils/exceptions";
+import { ITeamRepository } from "../../../repositories/ITeamRepository";
+import { NotFoundException } from "../../../utils/exceptions";
 import { IAddTeamMemberRequestDTO } from "./AddTeamMemberDTO";
 
 export class AddTeamMemberUseCase {
+    userRepository: any;
 
     constructor(private teamRepository: ITeamRepository) { }
 

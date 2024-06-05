@@ -1,4 +1,4 @@
-import { TeamRepository } from "../../repositories/implementations/PostgresTeamRepository";
+import { TeamRepository } from "../../../repositories/implementations/PostgresTeamRepository";
 import { DeleteTeamMemberController } from "./DeleteTeamMemberController";
 import { DeleteTeamMemberUseCase } from "./DeleteTeamMemberUseCase";
 

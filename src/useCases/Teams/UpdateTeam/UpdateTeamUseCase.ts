@@ -1,6 +1,6 @@
-import { Team } from "../../entities/Team";
-import { ITeamRepository } from "../../repositories/ITeamRepository";
-import { ConflictException, NotFoundException } from "../../utils/exceptions";
+import { Team } from "../../../entities/Team";
+import { ITeamRepository } from "../../../repositories/ITeamRepository";
+import { ConflictException, NotFoundException } from "../../../utils/exceptions";
 import { IUpdateTeamRequestDTO } from "./UpdateTeamDTO";
 
 

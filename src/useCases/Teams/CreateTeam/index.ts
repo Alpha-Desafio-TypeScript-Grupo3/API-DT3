@@ -1,4 +1,4 @@
-import { TeamRepository } from "../../repositories/implementations/PostgresTeamRepository";
+import { TeamRepository } from "../../../repositories/implementations/PostgresTeamRepository";
 import { CreateTeamController } from "./CreateTeamController";
 import { CreateTeamUseCase } from "./CreateTeamUseCase";
 

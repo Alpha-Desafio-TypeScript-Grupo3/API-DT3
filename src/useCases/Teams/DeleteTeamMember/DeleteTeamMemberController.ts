@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import HttpResponse from "../../utils/http_response";
-import { ErrorType } from "../../utils/exceptions";
+import HttpResponse from "../../../utils/http_response";
+import { ErrorType } from "../../../utils/exceptions";
 import { DeleteTeamMemberUseCase } from "../DeleteTeamMember/DeleteTeamMemberUseCase";
 
 export class DeleteTeamMemberController {

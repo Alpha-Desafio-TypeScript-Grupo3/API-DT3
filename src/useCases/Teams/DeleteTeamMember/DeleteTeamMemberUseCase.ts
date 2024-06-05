@@ -1,9 +1,10 @@
-import { ITeamRepository } from "../../repositories/ITeamRepository";
-import { BadRequestException, NotFoundException } from "../../utils/exceptions";
+import { ITeamRepository } from "../../../repositories/ITeamRepository";
+import { BadRequestException, NotFoundException } from "../../../utils/exceptions";
 import { IDeleteTeamMemberRequestDTO } from "./DeleteTeamMemberDTO";
 
 
 export class DeleteTeamMemberUseCase {
+    userRepository: any;
 
     constructor(private teamRepository: ITeamRepository) { }
 

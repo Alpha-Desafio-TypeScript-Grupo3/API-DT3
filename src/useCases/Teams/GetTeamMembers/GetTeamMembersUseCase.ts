@@ -1,5 +1,5 @@
-import { ITeamRepository } from "../../repositories/ITeamRepository";
-import { NotFoundException } from "../../utils/exceptions";
+import { ITeamRepository } from "../../../repositories/ITeamRepository";
+import { NotFoundException } from "../../../utils/exceptions";
 import { IGetTeamMembersRequestDTO } from "./GetTeamMembersDTO";
 
 
