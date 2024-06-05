@@ -49,7 +49,6 @@ export class UpdateUserByIdUseCase {
       }
 
       if (data.isAdmin !== undefined) newData.is_admin = data.isAdmin;
-  console.log(newData)
       try {
         return await this.postgresUserRepository.updateUserById(userId, newData);
       } catch (err: any) {
