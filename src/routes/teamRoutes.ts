@@ -7,10 +7,12 @@ import { addTeamMemberController } from "../useCases/Teams/AddTeamMember";
 import { updateTeamController } from "../useCases/Teams/UpdateTeam";
 import { deleteTeamMemberController } from "../useCases/Teams/DeleteTeamMember";
 import { deleteTeamController } from "../useCases/Teams/DeleteTeam";
+import adminOrLeaderPermission from "../middlewares/isMemberPermission";
+import isMemberPermission from "../middlewares/isMemberPermission";
 const router = express.Router()
 
-router.get('/', (req, res) => { return getTeamsController.handleGetAll(req, res) });
-router.get('/:team_id', (req, res) => { return getTeamByIdController.handleGetById(req, res) });
+router.get('/', adminOrLeaderPermission, (req, res) => { return getTeamsController.handleGetAll(req, res) });
+router.get('/:team_id', isMemberPermission, (req, res) => { return getTeamByIdController.handleGetById(req, res) });
 router.get('/:team_id/members', (req, res) => { return getTeamMembersController.handleGetTeamMembers(req, res) });
 
 router.post('/', (req, res) => { return createTeamController.handleCreate(req, res) });

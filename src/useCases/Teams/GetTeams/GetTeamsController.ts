@@ -14,7 +14,7 @@ export class GetTeamsController {
             const response = new HttpResponse({
                 statusCode: 200,
                 data: teams,
-                message: 'Times encontrados com sucesso!'
+                message: 'Lista de times econtrados'
             });
 
             return res.status(response.statusCode).json(response);

@@ -10,13 +10,13 @@ export class CreateTeamController {
         const { leader, name } = req.body;
 
         try {
-            const team = await this.createTeamUseCase.execute({ leader, name });
+            const createdTeam = await this.createTeamUseCase.execute({ leader, name });
 
-            console.log("controller:", team);
+            console.log("controller:", createdTeam);
 
             const response = new HttpResponse({
                 statusCode: 201,
-                data: team,
+                data: createdTeam,
                 message: 'Time criado com sucesso!'
             });
 

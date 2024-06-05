@@ -15,7 +15,7 @@ export class GetTeamMembersController {
             const response = new HttpResponse({
                 statusCode: 200,
                 data: members,
-                message: 'Membros encontrados com sucesso!'
+                message: 'Lista de membros encontrados'
             });
 
             return res.status(response.statusCode).json(response);

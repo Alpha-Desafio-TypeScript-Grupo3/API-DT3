@@ -41,6 +41,7 @@ export class PostgresTeamRepository implements ITeamRepository {
             const results = await database.executeQuery({
                 //query: `SELECT * from users WHERE team = $1`,
                 query: `SELECT * from users WHERE squad = $1`,
+                args: [data.team_id],
             });
 
             console.log("rr", results.rows);
@@ -55,7 +56,7 @@ export class PostgresTeamRepository implements ITeamRepository {
 
             return members ?? [];
         } catch (error) {
-            console.error(`TeamRepository::getAll error [${error}]`);
+            console.error(`TeamRepository::getTeamMembers error [${error}]`);
             throw new InternalServerException();
         }
     }
@@ -69,7 +70,7 @@ export class PostgresTeamRepository implements ITeamRepository {
 
             const team: IGetTeamByIdResponseDTO = results.rows[0];
 
-            return team ?? [];
+            return team ?? {};
         } catch (error) {
             console.error(`TeamRepository::findById error [${error}]`);
             throw new InternalServerException();
@@ -87,7 +88,7 @@ export class PostgresTeamRepository implements ITeamRepository {
 
             return team ?? '';
         } catch (error) {
-            console.error(`TeamRepository::findById error [${error}]`);
+            console.error(`TeamRepository::findByName error [${error}]`);
             throw new InternalServerException();
         }
     }
@@ -103,7 +104,7 @@ export class PostgresTeamRepository implements ITeamRepository {
 
             return team ?? '';
         } catch (error) {
-            console.error(`TeamRepository::findById error [${error}]`);
+            console.error(`TeamRepository::findByLeader error [${error}]`);
             throw new InternalServerException();
         }
     }
@@ -124,7 +125,7 @@ export class PostgresTeamRepository implements ITeamRepository {
 
             return createdTeam;
         } catch (error) {
-            console.error(`UserRepository::createUser error [${error}]`);
+            console.error(`TeamRepository::createUser error [${error}]`);
             throw new InternalServerException();
         }
     }
@@ -148,7 +149,7 @@ export class PostgresTeamRepository implements ITeamRepository {
 
             return addedMember;
         } catch (error) {
-            console.error(`UserRepository::createUser error [${error}]`);
+            console.error(`TeamRepository::addTeamMember error [${error}]`);
             throw new InternalServerException();
         }
     }
@@ -175,7 +176,7 @@ export class PostgresTeamRepository implements ITeamRepository {
 
             return updatedTeam;
         } catch (error) {
-            console.error(`UserRepository::createUser error [${error}]`);
+            console.error(`TeamRepository::updateTeam error [${error}]`);
             throw new InternalServerException();
         }
     }
@@ -199,16 +200,18 @@ export class PostgresTeamRepository implements ITeamRepository {
 
             return removedMember;
         } catch (error) {
-            console.error(`UserRepository::createUser error [${error}]`);
+            console.error(`TeamRepository::deleteTeamMember error [${error}]`);
             throw new InternalServerException();
         }
     }
 
     async deleteTeam(data: IDeleteRequestDTO): Promise<IDeleteResponseDTO> {
+
+        console.log("team", data);
         try {
 
             const result = await database.executeQuery({
-                query: "DELETE teams WHERE id = $1 RETURNING *",
+                query: "DELETE FROM teams WHERE id = $1 RETURNING *",
                 args: [data.team_id],
             });
 
@@ -220,7 +223,7 @@ export class PostgresTeamRepository implements ITeamRepository {
 
             return deletedTeam;
         } catch (error) {
-            console.error(`UserRepository::createUser error [${error}]`);
+            console.error(`TeamRepository::deleteTeam error [${error}]`);
             throw new InternalServerException();
         }
     }
