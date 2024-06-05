@@ -11,6 +11,7 @@ export class CreateUserUseCase {
     UserValidation.nameCheck(data.first_name + ' ' + data.last_name); // Validação do nome completo
     UserValidation.emailCheck(data.email);
     UserValidation.passwordCheck(data.password);
+    UserValidation.usernameCheck(data.username);
 
     const userAlreadyExists = await this.usersRepository.findUserByEmail(data.email);
 

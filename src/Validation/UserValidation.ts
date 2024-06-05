@@ -17,6 +17,11 @@ export class UserValidation {
       if (!(cleanedName.length >= 4))
         throw new Error("The name must have at least 4 characters");
     }
+
+    public static usernameCheck(username: string): void {
+      if (!username)
+        throw new Error("There must be username");
+    }
   
     public static passwordCheck(password: string): void {
       const hasLetter = /[a-zA-Z]/.test(password);
