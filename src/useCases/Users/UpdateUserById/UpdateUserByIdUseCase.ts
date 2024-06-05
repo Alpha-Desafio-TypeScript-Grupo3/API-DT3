@@ -48,7 +48,7 @@ export class UpdateUserByIdUseCase {
         const hashedPassword: string = await Utils.hashPassword(data.password);
         newData.password = hashedPassword
       }
-
+      
       if (data.isAdmin !== undefined) newData.is_admin = data.isAdmin;
       try {
         return await this.postgresUserRepository.updateUserById(userId, newData);

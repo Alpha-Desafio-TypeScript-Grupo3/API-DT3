@@ -158,4 +158,21 @@ export class PostgresUserRepository implements IUserRepository {
       return null;
     }
   }
+  public async getUserMe(id: string): Promise<Partial<User>> {
+    try {
+        const result = await database.executeQuery({
+            query: `SELECT * FROM users WHERE id = $1`,
+            args: [id]
+        });
+
+        if (result.rowCount < 1) {
+            throw new Error("User not Found");
+        }
+
+        return result.rows[0];
+    } catch (err) {
+        throw new Error("User not Found");
+    }
+};
+
 }

@@ -9,8 +9,10 @@ export class UpdateUserByIdController {
   public constructor(private updateUserByIdUseCase: UpdateUserByIdUseCase) {}
 
   public async handle(req: Request, res: Response) {
-    const id = req.params.user_id;
+    const id = { id: req.params.user_id, isAdmin: req.user };
     const user = req.body;
+    console.log(req.user)
+    console.log(id)
     try {
       const result = await this.updateUserByIdUseCase.execute(id, user);
 
