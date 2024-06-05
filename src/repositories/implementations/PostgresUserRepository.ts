@@ -16,7 +16,27 @@ export class PostgresUserRepository implements IUserRepository {
     });
   }
 
-  public async getUserById(id: string): Promise<User | null> {
+ public async findUserByEmail(email: string): Promise<boolean> {
+    const query = `SELECT * FROM users WHERE email = $1`;
+    const result: any = await this.pool.query(query, [email]);
+    if(result.rowCount > 0){
+      return true
+    } else {
+      return false
+    }
+  }
+
+  public async findUserByUsername(username: string): Promise<boolean> {
+    const query = `SELECT * FROM users WHERE username = $1`;
+    const result: any = await this.pool.query(query, [username]);
+    if(result.rowCount > 0){
+      return true
+    } else {
+      return false
+    }
+  }
+
+  public async getUserById(id: string): Promise<Partial<User> | null> {
     const query = `
     SELECT * FROM Users WHERE id = $1
     `;
@@ -26,11 +46,14 @@ export class PostgresUserRepository implements IUserRepository {
     if (result.rows.length > 0) {
       const userFromDb = result.rows[0];
 
-      const user: User = {
+      const user: Partial<User> = {
         id: userFromDb.id,
-        name: `${userFromDb.first_name} ${userFromDb.last_name}`,
+        username: userFromDb.username,
+        firstName: userFromDb.first_name,
+        lastName: userFromDb.last_name,
         email: userFromDb.email,
-        password: userFromDb.password,
+        squad: userFromDb.squad,
+        isAdmin: userFromDb.is_admin
       };
 
       return user;
@@ -39,62 +62,61 @@ export class PostgresUserRepository implements IUserRepository {
     }
   }
 
-  public async createUser(user: User): Promise<void> {
+  public async createUser(user: User): Promise<Partial<User> | string> {
     const query = `
-        INSERT INTO Users (id, name, email, password)
-        VALUES ($1, $2, $3, $4)
+        INSERT INTO Users (id, username, first_name, last_name, email, password, squad, is_admin)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *
         `;
-
-    this.pool
-      .query(query, [user.id, user.name, user.email, user.password])
-      .then(() => {
-        console.log("User inserted successfully!", user);
-      })
-      .catch((err) => {
-        console.error("Error inserting user:", err);
-      });
+        try {
+          const result: any = await this.pool.query(query, 
+            [user.id, user.username, user.firstName, user.lastName, user.email, user.password, user.squad, user.isAdmin])
+            console.log("User inserted successfully!", user);
+            return result.rows[0];
+          } catch (err: any) {
+            console.error("Error inserting user:", err.message);
+            return err.message
+          }
   }
 
-  public async updateUserById(
-    id: string,
-    updatedData: Partial<User>
-  ): Promise<void> {
+
+  public async updateUserById(id: string, updatedData: Partial<User>): Promise<Partial<User>> {
+    const setClause = Object.keys(updatedData)
+      .map((key, index) => `${key} = $${index + 1}`)
+      .join(', ');
+    const values = Object.values(updatedData);
+
     const query = `
       UPDATE Users
-      SET name = $1, password = $2, email = $3
-      WHERE id = $4
+      SET ${setClause}
+      WHERE id = $${values.length + 1}
+      RETURNING *;
     `;
 
-    const { name, password, email } = updatedData;
-
     try {
-      await this.pool.query(query, [name, password, email, id]);
-
-      console.log(`User with email ${email} updated successfully!`);
+      const result = await this.pool.query(query, [...values, id]);
+      return result.rows[0];
     } catch (error) {
-      console.error(`Error updating user ${name}:`, error);
-
+      console.error(`Error updating user with id ${id}:`, error);
       throw new Error("Failed to update user.");
     }
   }
 
-  public async deleteUserById(id: string): Promise<void> {
+  public async deleteUserById(id: string): Promise<Partial<User>> {
     const query = `
-      DELETE FROM Users WHERE id = $1
+      DELETE FROM Users WHERE id = $1 RETURNING *
     `;
 
     try {
-      await this.pool.query(query, [id]);
-
+      const result: any = await this.pool.query(query, [id]);
       console.log(`User with ID ${id} deleted successfully!`);
+      return result.rows[0]
     } catch (error) {
       console.error(`Error deleting user with ID ${id}:`, error);
-
       throw new Error("Failed to delete user.");
     }
   }
 
-  public async getUsers(): Promise<User[]> {
+  public async getUsers(): Promise<Partial<User>[]> {
     const query = `
     SELECT * FROM Users
   `;
@@ -104,11 +126,14 @@ export class PostgresUserRepository implements IUserRepository {
       const result = await this.pool.query(query);
 
       // Mapeie os resultados para o formato da interface User
-      const users: User[] = result.rows.map((userFromDb: any) => ({
+      const users: Partial<User>[] = result.rows.map((userFromDb: any) => ({
         id: userFromDb.id,
-        name: `${userFromDb.first_name} ${userFromDb.last_name}`,
+        username: userFromDb.username,
+        firstName: userFromDb.first_name,
+        lastName: userFromDb.last_name,
         email: userFromDb.email,
-        password: userFromDb.password,
+        squad: userFromDb.squad,
+        isAdmin: userFromDb.is_admin
       }));
 
       return users;

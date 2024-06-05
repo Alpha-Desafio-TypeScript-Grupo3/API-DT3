@@ -1,13 +1,17 @@
 import { User } from "../entities/User";
 
 export interface IUserRepository {
-  getUserById(id: string): Promise<User | null>;
+  findUserByEmail(email: string): Promise<boolean>;
 
-  createUser(user: User): Promise<void>;
+  findUserByUsername(username: string): Promise<boolean>;
 
-  updateUserById(id: string, updatedData: Partial<User>): Promise<void>;
+  getUserById(id: string): Promise<Partial<User> | null>;
 
-  deleteUserById(id: string): Promise<void>;
+  createUser(user: User): Promise<Partial<User> | string>;
+
+  updateUserById(id: string, updatedData: Partial<User>): Promise<Partial<User>>;
+
+  deleteUserById(id: string): Promise<Partial<User>>;
   
-  getUsers(): Promise<User[]>
+  getUsers(): Promise<Partial<User>[]>
 }
