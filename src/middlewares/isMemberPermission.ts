@@ -9,6 +9,7 @@ import { PostgresUserRepository } from '../repositories/implementations/Postgres
 
 
 // Setando a propriedade user que não existe por padrão na Request
+// É preferível criar um novo Request e não modificar o original
 declare global {
     namespace Express {
         interface Request {

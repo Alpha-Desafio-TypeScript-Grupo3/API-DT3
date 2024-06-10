@@ -11,8 +11,7 @@ export class UpdateUserByIdController {
   public async handle(req: Request, res: Response) {
     const id = req.params.user_id;
     const user = req.body;
-    console.log(req.user)
-    console.log(id)
+
     try {
       const result = await this.updateUserByIdUseCase.execute(id, user);
 
