@@ -18,7 +18,7 @@ declare global {
 
 const SECRET_KEY = config.SECRET_KEY;
 
-async function adminOrLeaderPermission(req: Request, res: Response, next: NextFunction): Promise<void> {
+async function adminOrAnyLeaderPermission(req: Request, res: Response, next: NextFunction): Promise<void> {
     const sessionToken: string = req.cookies.session_id;
 
     if (!sessionToken) {
@@ -55,4 +55,4 @@ async function adminOrLeaderPermission(req: Request, res: Response, next: NextFu
     });
 }
 
-export default adminOrLeaderPermission;
+export default adminOrAnyLeaderPermission;

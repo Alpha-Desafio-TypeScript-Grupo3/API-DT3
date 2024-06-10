@@ -4,12 +4,12 @@ import { UpdateUserByIdUseCase } from "./UpdateUserByIdUseCase";
 
 export class UpdateUserByIdController {
   static handle(req: Request, res: Response): void {
-      throw new Error('Method not implemented.');
+    throw new Error('Method not implemented.');
   }
-  public constructor(private updateUserByIdUseCase: UpdateUserByIdUseCase) {}
+  public constructor(private updateUserByIdUseCase: UpdateUserByIdUseCase) { }
 
   public async handle(req: Request, res: Response) {
-    const id = { id: req.params.user_id, isAdmin: req.user };
+    const id = req.params.user_id;
     const user = req.body;
     console.log(req.user)
     console.log(id)
