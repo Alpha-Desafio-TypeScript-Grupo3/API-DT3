@@ -48,10 +48,7 @@ export class PostgresTeamRepository implements ITeamRepository {
 
             const members: IGetTeamMembersResponseDTO[] = results.rows.map((result: Team) => {
 
-                return ({
-                    name: result.name,
-                    args: [data.team_id],
-                });
+                return ({ id: result.id });
             });
 
             return members ?? [];
@@ -186,7 +183,7 @@ export class PostgresTeamRepository implements ITeamRepository {
 
             const result = await database.executeQuery({
                 //query: "UPDATE users SET team = '' WHERE id = $1 RETURNING *",
-                query: "UPDATE users SET squad = '' WHERE id = $1 RETURNING *",
+                query: "UPDATE users SET squad = null WHERE id = $1 RETURNING *",
                 args: [data.user_id],
             });
 

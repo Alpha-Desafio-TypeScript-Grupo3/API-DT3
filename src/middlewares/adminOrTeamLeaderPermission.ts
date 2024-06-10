@@ -5,7 +5,7 @@ import HttpResponse from '../utils/http_response';
 import { ForbiddenException, UnauthorizedException } from '../utils/exceptions';
 import { User } from '../entities/User';
 import { PostgresTeamRepository } from '../repositories/implementations/PostgresTeamRepository';
-import { PostgresUserRepository } from '../repositories/implementations/PostgresUserRepository';
+import { IGetTeamByIdRequestDTO } from '../useCases/Teams/GetTeamById/GetTeamByIdDTO';
 
 
 // Setando a propriedade user que não existe por padrão na Request
@@ -20,11 +20,9 @@ declare global {
 
 const SECRET_KEY = config.SECRET_KEY;
 
-async function isMemberPermission(req: Request, res: Response, next: NextFunction): Promise<void> {
+async function adminOrTeamLeaderPermission(req: Request, res: Response, next: NextFunction): Promise<void> {
     const sessionToken: string = req.cookies.session_id;
     const team_id = req.params.team_id;
-
-    console.log("sesstoken:", sessionToken);
 
     if (!sessionToken) {
         const exception = new UnauthorizedException('Missing JWT token')
@@ -35,7 +33,6 @@ async function isMemberPermission(req: Request, res: Response, next: NextFunctio
     }
 
     jwt.verify(sessionToken, SECRET_KEY, async (err: any, decoded: any) => {
-
         if (err) {
             const exception = new UnauthorizedException('Invalid JWT token')
             const response = HttpResponse.fromException(exception);
@@ -43,16 +40,20 @@ async function isMemberPermission(req: Request, res: Response, next: NextFunctio
             res.status(response.statusCode).json(response);
             return;
         } else {
+            const userId: string = decoded.id
 
-            const postgresUserRepository = new PostgresUserRepository();
-            const user = await postgresUserRepository.getUserById(decoded.id);
+            const postgresTeamRepository = new PostgresTeamRepository();
+            const team = await postgresTeamRepository.findById({ team_id });
 
-            if (user!.squad !== team_id && !decoded.is_admin) {
-                const exception = new ForbiddenException('Você não é membro dessa equipe ou não possui permissão para efetuar essa requisição')
-                const response = HttpResponse.fromException(exception);
+            if (!decoded.is_admin) {
 
-                res.status(response.statusCode).json(response);
-                return;
+                if (team.leader !== userId) {
+                    const exception = new ForbiddenException('Requisição negada, você não é lider dessa equipe')
+                    const response = HttpResponse.fromException(exception);
+
+                    res.status(response.statusCode).json(response);
+                    return;
+                }
             }
 
             req.user = decoded;
@@ -61,4 +62,4 @@ async function isMemberPermission(req: Request, res: Response, next: NextFunctio
     });
 }
 
-export default isMemberPermission;
+export default adminOrTeamLeaderPermission;
